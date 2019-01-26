@@ -94,7 +94,6 @@ def predict():
     predictionvalue=model.predict_proba([list(preddict.values())])
     preddict['Prediction']=predictionvalue[0][1]
 
-    print(preddict)
 
     return jsonify(preddict)
 
