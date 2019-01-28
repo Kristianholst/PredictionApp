@@ -26,11 +26,11 @@ def getonedict():
     data=request.data
     dataDict = json.loads(data)
     
-    idtofind=dataDict['rec_id']
+    idtofind=dataDict['pid']
     ##implement not found
 
     
-    user =mongo.db.income.find_one( { 'rec_id': idtofind }, {  '_id': 0 } ) 
+    user =mongo.db.income.find_one( { 'pid': idtofind }, {  '_id': 0 } ) 
     print(type(user))
     #not found
     if user:
@@ -47,10 +47,10 @@ def predict():
     userdata = json.loads(data)
     
     #fetching own self reported data/not necessary
-    idtofind=userdata['rec_id']
+    idtofind=userdata['pid']
     
     #fetching database data
-    dbdata =mongo.db.income.find_one( { 'rec_id': idtofind }, {  '_id': 0 } ) 
+    dbdata =mongo.db.income.find_one( { 'pid': idtofind }, {  '_id': 0  } ) 
     
     #return if no user found
     if not dbdata:
