@@ -24,10 +24,10 @@ The self reported variables are:
 
 | Self reported|
 |--------------|
-|"pid" (personal id)|
-|"hours-per-week" |
-|"relationship"|
-|"occupation":|
+|pid" (personal id)|
+|hours-per-week|
+|relationship|
+|occupation|
 |workclass| 
 
 WORK IN PROGRESS
