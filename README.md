@@ -34,6 +34,7 @@ The self reported variables are:
 |workclass| 
 
 The database data are:
+
 |Database data|
 |----|
 |Age|
