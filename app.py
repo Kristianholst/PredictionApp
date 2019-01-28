@@ -6,7 +6,7 @@ import json
 from bson import ObjectId
 from flask import Response
 from collections import defaultdict
-from transformdict import transformdict
+from transformdict import transformdict, transformdictreversed
 from joblib import dump, load
 
 
@@ -93,6 +93,10 @@ def predict():
 
     predictionvalue=model.predict_proba([list(preddict.values())])
     preddict['Prediction']=predictionvalue[0][1]
+
+    #transform predictiondict to more readable form
+    for name in catnames:
+        preddict[name]=transformdictreversed[name][preddict[name]]
 
 
     return jsonify(preddict)
