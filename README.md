@@ -20,5 +20,15 @@ the complexity that arises with this set up. To do this I looked at the variable
 thought what is usually self reported and what might be available in a database(public information or tax info supplied with the
 consent of the individual)
 
+The self reported variables are:
+
+| Self reported|
+|--------------|
+|"pid" (personal id)|
+|"hours-per-week" |
+|"relationship"|
+|"occupation":|
+|workclass| 
+
 WORK IN PROGRESS
 
