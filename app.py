@@ -8,6 +8,8 @@ from flask import Response
 from collections import defaultdict
 from transformdict import transformdict, transformdictreversed
 from joblib import dump, load
+import requests 
+
 
 
 
@@ -97,6 +99,14 @@ def predict():
     #transform predictiondict to more readable form
     for name in catnames:
         preddict[name]=transformdictreversed[name][preddict[name]]
+
+    ##bonus provide request with additional third party data
+
+    extdata=requests.get("https://jsonplaceholder.typicode.com/users/"+ pid)
+
+
+
+
 
 
     return jsonify(preddict)
