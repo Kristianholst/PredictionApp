@@ -49,16 +49,16 @@ def getonedict():
 @app.route('/predict', methods=['GET'])
 def predict():
     data=request.data
-    userdata = json.loads(data)
-
+    
     ##first of all validate input from user:
     
     try:
-        jsonschema.validate(userdata, schema)
+        jsonschema.validate(data, schema)
         
-    except jsonschema.exceptions.ValidationError as ve:
-        return("Error in input validation. Please check input The error is:"+ str(ve))
+    except jsonschema.exceptions.ValidationError:
+        return("Error in input validation. Please check input")
 
+    userdata = json.loads(data)
 
 
 
