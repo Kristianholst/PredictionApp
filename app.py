@@ -65,7 +65,6 @@ def predict():
     collist=['age','workclass','education','educational-num','marital-status','occupation','relationship','race','gender',
         'capital-gain','capital-loss','hours-per-week','native-country']
     
-    
     preddict={}
     
     #making dict with 0 values
