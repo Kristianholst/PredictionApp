@@ -40,7 +40,7 @@ def getonedict():
         return result
         
     else:
-        print('None')
+        print('None found')
         return Response('ID not found', status=404)      
 
 @app.route('/predict', methods=['GET'])
@@ -102,8 +102,9 @@ def predict():
 
     ##bonus provide request with additional third party data
 
-    extdata=requests.get("https://jsonplaceholder.typicode.com/users/"+ pid)
+    extdata=requests.get("https://jsonplaceholder.typicode.com/users/"+ str(idtofind)).json()
 
+    preddict['address']=extdata['address']
 
 
 
