@@ -102,10 +102,13 @@ def predict():
 
     ##bonus provide request with additional third party data
 
-    extdata=requests.get("https://jsonplaceholder.typicode.com/users/"+ str(idtofind)).json()
+    extdata=requests.get("https://jsonplaceholder.typicode.com/users/"+ str(idtofind))
+    jsonrespons=extdata.json()
 
-    preddict['address']=extdata['address']
-
+    try:
+        preddict['address']=jsonrespons['address']
+    except:
+        preddict['address']=extdata.reason
 
 
 
