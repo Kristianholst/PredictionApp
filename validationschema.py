@@ -1,0 +1,32 @@
+schema={
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for a prediction modell",
+  "type": "object",
+  "properties": {
+    
+    "pid": {"type": "integer"},
+    
+    "hours-per-week": {"type": "integer",
+                       "minimum":0},
+    
+    "relationship": {"type": "string",
+                     "enum":['Husband','Not-in-family','Other-relative',
+                     'Own-child','Unmarried','Wife']},
+    
+      
+    "occupation":{"type":"string",
+                    "enum":['?', 'Adm-clerical', 'Armed-Forces', 'Craft-repair', 'Exec-managerial', 
+                                          'Farming-fishing', 'Handlers-cleaners', 'Machine-op-inspct',
+                                          'Other-service', 'Priv-house-serv', 'Prof-specialty', 
+                                          'Protective-serv', 'Sales', 'Tech-support', 'Transport-moving']},
+    
+      
+    "workclass":{"type":"string", 
+                   "enum":['?', 'Federal-gov', 'Local-gov', 
+            'Never-worked', 'Private', 'Self-emp-inc', 'Self-emp-not-inc', 'State-gov', 'Without-pay']}
+    
+    
+                     
+}
+   ,"required": ["pid", "hours-per-week","relationship","occupation","workclass"]
+}

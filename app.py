@@ -9,6 +9,9 @@ from collections import defaultdict
 from transformdict import transformdict, transformdictreversed
 from joblib import dump, load
 import requests 
+from validationschema import schema
+import jsonschema
+
 
 
 
@@ -47,7 +50,18 @@ def getonedict():
 def predict():
     data=request.data
     userdata = json.loads(data)
+
+    ##first of all validate input from user:
     
+    try:
+        jsonschema.validate(userdata, schema)
+        
+    except jsonschema.exceptions.ValidationError as ve:
+        return("Error in input validation. Please check input The error is:"+ str(ve))
+
+
+
+
     #fetching own self reported data/not necessary
     idtofind=userdata['pid']
     
@@ -83,7 +97,10 @@ def predict():
 
     ##import transformdict
     catnames=['workclass','education','marital-status','occupation','relationship','race','gender','native-country']
+    
+    #dealingwith key errors
 
+    
     for name in catnames:
         preddict[name]=transformdict[name][preddict[name]]
 
