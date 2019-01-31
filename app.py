@@ -12,18 +12,10 @@ import requests
 from validationschema import schema
 import jsonschema
 
-
-
-
-
-
 app = Flask(__name__)
-
 app.config['MONGO_DBNAME'] = 'test'
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/test'
-
 mongo = PyMongo(app)
-
 
 
 @app.route('/find', methods=['GET'])
@@ -32,11 +24,8 @@ def getonedict():
     dataDict = json.loads(data)
     
     idtofind=dataDict['pid']
-    ##implement not found
-
-    
     user =mongo.db.income.find_one( { 'pid': idtofind }, {  '_id': 0 } ) 
-    print(type(user))
+
     #not found
     if user:
         result=jsonify(user)
@@ -58,19 +47,15 @@ def predict():
     except jsonschema.exceptions.ValidationError:
         return("Error in input validation. Please check input")
 
+    ##making request data to jason dict
     userdata = json.loads(data)
 
-
-
-    #fetching own self reported data/not necessary
-    idtofind=userdata['pid']
-    
     #fetching database data
+    idtofind=userdata['pid']
     dbdata =mongo.db.income.find_one( { 'pid': idtofind }, {  '_id': 0  } ) 
     
     #return if no user found
     if not dbdata:
-        print('None')
         return Response('ID not found', status=404)  
 
     ##make dict to feed prediction. Combines both internal and user
@@ -96,19 +81,15 @@ def predict():
             preddict[col]=userdata[col]
 
     ##import transformdict
-    catnames=['workclass','education','marital-status','occupation','relationship','race','gender','native-country']
-    
-    #dealingwith key errors
-
-    
+    catnames=['workclass','education','marital-status','occupation','relationship','race','gender','native-country'] 
     for name in catnames:
         preddict[name]=transformdict[name][preddict[name]]
 
-    
-    
-    ##import model
+    ##prediction model
 
     model = load('model.joblib')
+
+    #return probabilites from model
 
     predictionvalue=model.predict_proba([list(preddict.values())])
     preddict['Prediction']=predictionvalue[0][1]
@@ -122,21 +103,15 @@ def predict():
     extdata=requests.get("https://jsonplaceholder.typicode.com/users/"+ str(idtofind))
     jsonrespons=extdata.json()
 
+    #handle if not found in external database
+
     try:
         preddict['address']=jsonrespons['address']
     except:
         preddict['address']=extdata.reason
 
 
-
-
     return jsonify(preddict)
-
-
-
-    ##implement not found
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
