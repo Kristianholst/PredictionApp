@@ -27,7 +27,7 @@ The self reported variables are:
 
 | Self reported|
 |--------------|
-|pid" (personal id)|
+|pid (personal id)|
 |hours-per-week|
 |relationship|
 |occupation|
@@ -50,6 +50,17 @@ The database data are:
 One might argue that the database variables too much information a company can have on individuals, but for this example we are not delving into the whole GDPR discussion and just assuming that this data is retrieved by consent of the individual.
 
 ## Infrastructure
+
+The infrastructure of the project is a flask app as web server and a mongo db as backend db. The model development was done in jupyter notebook using the scikit learn library.
+I chose mongoDB as backend database. MongoDB is a non-relational database that stores information as documents. The reason why I chose mongoDB was I wanted to learn how to use this different kind of database.
+
+## Model development
+
+I have trained a simple random forest classifier on the income dataset which quickly got the accuracy on 85%. The focus of the project, however, was not the model building and fine tuning, but instead how to push a model to production and dealing with the data input/output for the api. After the modeldevelopment was finished the model was exported and then made available throug a joblib file. See the notebook for the training and exporting of the model.
+
+## Hosting
+The model and db are hosted on heroku. I found it quite simple to upload the app(code) and initilize the db
+
 
 
 
