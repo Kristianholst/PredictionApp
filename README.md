@@ -49,6 +49,10 @@ The database data are:
 
 One might argue that the database variables too much information a company can have on individuals, but for this example we are not delving into the whole GDPR discussion and just assuming that this data is retrieved by consent of the individual.
 
+## Infrastructure
+
+
+
 
 
 
