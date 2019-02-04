@@ -14,7 +14,7 @@ import jsonschema
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'test'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/test'
+app.config['MONGO_URI'] = 'mongodb://heroku_d920w02q:7te7dnanivv88jr8bf4oe51vgh@ds211774.mlab.com:11774/heroku_d920w02q'
 mongo = PyMongo(app)
 
 
@@ -42,10 +42,10 @@ def predict():
     ##first of all validate input from user:
     
     try:
-        jsonschema.validate(data, schema)
+        jsonschema.validate(json.loads(data), schema)
         
-    except jsonschema.exceptions.ValidationError:
-        return("Error in input validation. Please check input")
+    except jsonschema.exceptions.ValidationError as e:
+        return("Error in input validation. Please check input"+str(e))
 
     ##making request data to jason dict
     userdata = json.loads(data)
