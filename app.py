@@ -11,10 +11,11 @@ from joblib import dump, load
 import requests 
 from validationschema import schema
 import jsonschema
+import os
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'test'
-app.config['MONGO_URI'] = 'mongodb://heroku_d920w02q:7te7dnanivv88jr8bf4oe51vgh@ds211774.mlab.com:11774/heroku_d920w02q'
+app.config['MONGO_URI'] = os.environ['MONGODB_URI'] 
 mongo = PyMongo(app)
 
 
