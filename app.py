@@ -19,6 +19,12 @@ app.config['MONGO_URI'] = os.environ['MONGODB_URI']
 mongo = PyMongo(app)
 
 
+@app.route('/', methods=['GET'])
+def index():
+    return "Find documentation on API on https://github.com/Kristianholst/PredictionApp"
+
+
+
 @app.route('/find', methods=['GET'])
 def getonedict():
     data=request.data
