@@ -25,7 +25,7 @@ def index():
 
 
 
-@app.route('/find', methods=['GET'])
+@app.route('/find', methods=['PUT'])
 def getonedict():
     data=request.data
     dataDict = json.loads(data)
