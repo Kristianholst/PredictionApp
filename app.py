@@ -42,7 +42,7 @@ def getonedict():
         print('None found')
         return Response('ID not found', status=404)      
 
-@app.route('/predict', methods=['GET'])
+@app.route('/predict', methods=['PUT'])
 def predict():
     data=request.data
     
