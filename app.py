@@ -27,7 +27,7 @@ mongo = PyMongo(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    return "Find documentation on API on https://github.com/Kristianholst/PredictionApp"
+    return "Find documentation on API on https://github.com/Kristianholst/PredictionApp or read swagger doc on https://predictionappk.herokuapp.com/swagger-ui/"
 
 
 
