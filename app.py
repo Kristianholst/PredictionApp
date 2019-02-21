@@ -14,11 +14,14 @@ import os.path
 import sys
 from datetime import datetime
 from functools import wraps, update_wrapper
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app) #allow crossdomain
+
 app.config['MONGO_DBNAME'] = 'test'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/test'
-#app.config['MONGO_URI'] = os.environ['MONGODB_URI'] 
+app.config['MONGO_URI'] = os.environ['MONGODB_URI'] 
 mongo = PyMongo(app)
 
 

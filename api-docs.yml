@@ -29,7 +29,7 @@ paths:
                 pid:
                   type: integer
                   example: 1
-                hours per week:
+                hours-per-week:
                   type: integer
                   example: 40
                 relationship:
