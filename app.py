@@ -1,8 +1,7 @@
-from flask import Flask, jsonify, make_response, send_from_directory,request
+from flask import Flask, jsonify, make_response, send_from_directory,request,Response, render_template
 from flask_pymongo import PyMongo
 import json
 from bson import ObjectId
-from flask import Response
 from collections import defaultdict
 from transformdict import transformdict, transformdictreversed
 from joblib import dump, load
@@ -27,7 +26,7 @@ mongo = PyMongo(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    return "Find documentation on API on https://github.com/Kristianholst/PredictionApp or read swagger doc on https://predictionappk.herokuapp.com/swagger-ui/"
+    return render_template("landing.html")
 
 
 
