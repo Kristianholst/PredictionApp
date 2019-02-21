@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: Predictionapp
+  description: >-
+    This api will predict based on internal data and userdata if a person earns
+    more 50k
+  version: '1.1'
+servers:
+  - url: 'https://predictionappk.herokuapp.com/'
+tags:
+  - name: "predict"
+    description: predict user
+    externalDocs:
+      description: Find out more
+      url: 'https://github.com/Kristianholst/PredictionApp'
+paths:
+  /predict:
+    put:
+      tags: 
+        - "predict"
+      summary: Predict user based on input
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pid:
+                  type: integer
+                  example: 1
+                hours per week:
+                  type: integer
+                  example: 40
+                relationship:
+                  type: string
+                  example: Husband
+                  enum:
+                    - Husband
+                    - Not-in-family
+                    - Other-relative
+                    - Own-child
+                    - Unmarried
+                    - Wife
+                occupation:
+                  type: string
+                  example: Armed-Forces
+                  enum:
+                    - '?'
+                    - Adm-clerical
+                    - Armed-Forces
+                    - Craft-repair
+                    - Exec-managerial
+                    - Farming-fishing
+                    - Handlers-cleaners
+                    - Machine-op-inspct
+                    - Other-service
+                    - Priv-house-serv
+                    - Prof-specialty
+                    - Protective-serv
+                    - Sales
+                    - Tech-support
+                    - Transport-moving
+                workclass:
+                  type: string
+                  example: Private
+                  enum:
+                    - '?'
+                    - Federal-gov
+                    - Local-gov
+                    - Never-worked
+                    - Private
+                    - Self-emp-inc
+                    - Self-emp-not-inc
+                    - State-gov
+                    - Without-pay
+      responses:
+        '200':
+          description: Prediction went well
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Prediction:
+                    type: number
+                    description: Probabiltiy if person earns more than 50k
+                    example: 0.1
+                  address:
+                    type: object
+                    properties:
+                      geo:
+                        type: object
+                        properties:
+                          lat:
+                            type: string
+                            example: 81.1496
+                          lng:
+                            type: string
+                            example: 81.1496
+                      street:
+                        type: string
+                        example: street 123
+                      suite:
+                        type: string
+                        example: suite1
+                      zipcode:
+                        type: string
+                        example: 92998-3874
+                  age:
+                    type: integer
+                    example: 40
+                  capital-gain:
+                    type: integer
+                    example: 40
+                  capital-loss:
+                    type: integer
+                    example: 0
+                  education:
+                    type: string
+                    example: HS-grad
+                  educational-num:
+                    type: integer
+                    example: 9
+                  gender:
+                    type: string
+                    example: Male
+                  hours-per-week:
+                    type: integer
+                    example: 40
+                  marital-status:
+                    type: string
+                    example: Married-civ-spouse
+                  native-country:
+                    type: string
+                    example: United-States
+                  occupation:
+                    type: string
+                    example: Farming-fishing
+                  race:
+                    type: string
+                    example: White
+                  relationship:
+                    type: string
+                    example: Own-child
+                  workclass:
+                    type: string
+                    example: Private

@@ -1,0 +1,251 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.1",
+    "title": "Predictionapp",
+    "description": "This api will predict based on internal data and userdata if a person earns more 50k",
+    "contact": {}
+  },
+  "host": "predictionappk.herokuapp.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/predict": {
+      "put": {
+        "description": "Predict user based on input",
+        "summary": "Predict user based on input",
+        "tags": [
+          "predict"
+        ],
+        "operationId": "PredictPut",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PredictRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Prediction went well",
+            "schema": {
+              "$ref": "#/definitions/PredictResponse"
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PredictRequest": {
+      "title": "PredictRequest",
+      "type": "object",
+      "properties": {
+        "pid": {
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "hours per week": {
+          "example": 40,
+          "type": "integer",
+          "format": "int32"
+        },
+        "relationship": {
+          "$ref": "#/definitions/Relationship"
+        },
+        "occupation": {
+          "$ref": "#/definitions/Occupation"
+        },
+        "workclass": {
+          "$ref": "#/definitions/Workclass"
+        }
+      }
+    },
+    "Relationship": {
+      "title": "Relationship",
+      "example": "Husband",
+      "type": "string",
+      "enum": [
+        "Husband",
+        "Not-in-family",
+        "Other-relative",
+        "Own-child",
+        "Unmarried",
+        "Wife"
+      ]
+    },
+    "Occupation": {
+      "title": "Occupation",
+      "example": "?",
+      "type": "string",
+      "enum": [
+        "?",
+        "Adm-clerical",
+        "Armed-Forces",
+        "Craft-repair",
+        "Exec-managerial",
+        "Farming-fishing",
+        "Handlers-cleaners",
+        "Machine-op-inspct",
+        "Other-service",
+        "Priv-house-serv",
+        "Prof-specialty",
+        "Protective-serv",
+        "Sales",
+        "Tech-support",
+        "Transport-moving"
+      ]
+    },
+    "Workclass": {
+      "title": "Workclass",
+      "example": "?",
+      "type": "string",
+      "enum": [
+        "?",
+        "Federal-gov",
+        "Local-gov",
+        "Never-worked",
+        "Private",
+        "Self-emp-inc",
+        "Self-emp-not-inc",
+        "State-gov",
+        "Without-pay"
+      ]
+    },
+    "PredictResponse": {
+      "title": "PredictResponse",
+      "type": "object",
+      "properties": {
+        "Prediction": {
+          "description": "Probabiltiy if person earns more than 50k",
+          "example": 0.1,
+          "type": "number",
+          "format": "double"
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "age": {
+          "example": 40,
+          "type": "integer",
+          "format": "int32"
+        },
+        "capital-gain": {
+          "example": 40,
+          "type": "integer",
+          "format": "int32"
+        },
+        "capital-loss": {
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
+        },
+        "education": {
+          "example": "HS-grad",
+          "type": "string"
+        },
+        "educational-num": {
+          "example": 9,
+          "type": "integer",
+          "format": "int32"
+        },
+        "gender": {
+          "example": "Male",
+          "type": "string"
+        },
+        "hours-per-week": {
+          "example": 40,
+          "type": "integer",
+          "format": "int32"
+        },
+        "marital-status": {
+          "example": "Married-civ-spouse",
+          "type": "string"
+        },
+        "native-country": {
+          "example": "United-States",
+          "type": "string"
+        },
+        "occupation": {
+          "example": "Farming-fishing",
+          "type": "string"
+        },
+        "race": {
+          "example": "White",
+          "type": "string"
+        },
+        "relationship": {
+          "example": "Own-child",
+          "type": "string"
+        },
+        "workclass": {
+          "example": "Private",
+          "type": "string"
+        }
+      }
+    },
+    "Address": {
+      "title": "Address",
+      "type": "object",
+      "properties": {
+        "geo": {
+          "$ref": "#/definitions/Geo"
+        },
+        "street": {
+          "example": "street 123",
+          "type": "string"
+        },
+        "suite": {
+          "example": "suite1",
+          "type": "string"
+        },
+        "zipcode": {
+          "example": "92998-3874",
+          "type": "string"
+        }
+      }
+    },
+    "Geo": {
+      "title": "Geo",
+      "type": "object",
+      "properties": {
+        "lat": {
+          "example": "81.1496",
+          "type": "string"
+        },
+        "lng": {
+          "example": "81.1496",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "predict",
+      "description": "predict user",
+      "externalDocs": {
+        "url": "https://github.com/Kristianholst/PredictionApp",
+        "description": "Find out more"
+      }
+    }
+  ]
+}

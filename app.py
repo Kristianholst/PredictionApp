@@ -1,6 +1,4 @@
-from flask import Flask
-from flask import jsonify
-from flask import request
+from flask import Flask, jsonify, make_response, send_from_directory,request
 from flask_pymongo import PyMongo
 import json
 from bson import ObjectId
@@ -12,10 +10,15 @@ import requests
 from validationschema import schema
 import jsonschema
 import os
+import os.path
+import sys
+from datetime import datetime
+from functools import wraps, update_wrapper
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'test'
-app.config['MONGO_URI'] = os.environ['MONGODB_URI'] 
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/test'
+#app.config['MONGO_URI'] = os.environ['MONGODB_URI'] 
 mongo = PyMongo(app)
 
 
@@ -116,8 +119,39 @@ def predict():
     except:
         preddict['address']=extdata.reason
 
-
+ 
     return jsonify(preddict)
+
+# We use this to prevent caching of `/api-docs.yml`
+# Credits: https://arusahni.net/blog/2014/03/flask-nocache.html
+def nocache(view):
+    @wraps(view)
+    def no_cache(*args, **kwargs):
+        response = make_response(view(*args, **kwargs))
+        response.headers["Last-Modified"] = datetime.now()
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, pre-check=0, max-age=0"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "-1"
+        return response
+    return update_wrapper(no_cache, view)
+
+SWAGGER_UI_DIST_DIR = "swagger-ui-dist"
+
+@app.route("/swagger-ui/")
+def swagger_ui():
+    print("rew")
+    return send_from_directory(SWAGGER_UI_DIST_DIR, "index.html")
+
+@app.route("/swagger-ui/<asset>")
+def swagger_assets(asset):
+    print(asset)
+    return send_from_directory(SWAGGER_UI_DIST_DIR, asset)
+
+@app.route("/api-docs.yml")
+@nocache
+def swagger_api_docs_yml():
+    print("API:3")
+    return send_from_directory(".", "api-docs.yml")
 
 if __name__ == '__main__':
     app.run(debug=True)
